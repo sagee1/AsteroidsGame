@@ -1,12 +1,17 @@
 Spaceship a = new Spaceship();
 Star [] s;
+ArrayList <Asteroid> list;
 public void setup()
 {
   size(500,500);
   s = new Star[500];
+  list = new ArrayList <Asteroid>();
   for(int i = 0; i < s.length; i++){
    s[i] = new Star();
-  } 
+  }
+  for(int i = 0; i < 10; i++){
+    list.add(new Asteroid());
+  }
 }
 public void draw()
 {
@@ -14,9 +19,18 @@ public void draw()
   noStroke();
   for(int i = 0; i < s.length; i++){
    s[i].show();
-  } 
-  a.show();
-  a.move();
+  }
+  for(int i = 0; i < list.size(); i++){
+    Asteroid numRock = list.get(i);
+    numRock.show();
+    numRock.move();
+    float d = dist((float)a.getX(), (float)a.getY(), (float)numRock.getX(), (float)numRock.getY());
+     if(d < 30){
+        list.remove(i);
+     }
+  }
+   a.show();
+   a.move();
 }
 
 public void keyPressed(){
