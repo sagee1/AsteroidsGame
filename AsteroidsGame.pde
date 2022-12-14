@@ -1,6 +1,7 @@
 Spaceship a = new Spaceship();
 Star [] s;
 ArrayList <Asteroid> list;
+ArrayList <Bullet> shoot = new ArrayList <Bullet>();
 public void setup()
 {
   size(500,500);
@@ -9,7 +10,7 @@ public void setup()
   for(int i = 0; i < s.length; i++){
    s[i] = new Star();
   }
-  for(int i = 0; i < 10; i++){
+  for(int i = 0; i < 16; i++){
     list.add(new Asteroid());
   }
 }
@@ -29,24 +30,44 @@ public void draw()
         list.remove(i);
      }
   }
+  for(int i = 0; i < shoot.size(); i++){
+    Bullet shell = shoot.get(i);
+    shell.show();
+    shell.move();
+  }
+  for(int j = 0; j < shoot.size(); j++){
+    Bullet shells = shoot.get(j);
+    for(int i = 0; i < list.size(); i++){
+      Asteroid numRock = list.get(i);
+      float hit = dist((float)shells.getX(), (float)shells.getY(), (float)numRock.getX(), (float)numRock.getY());
+      if(hit < 30){
+        list.remove(i); 
+       }
+    }
+    
+   }
    a.show();
    a.move();
+   System.out.println(shoot.size());
 }
 
 public void keyPressed(){
      if(key == 'w'){
        a.accelerate(1);
      }
-     if(key == 'a'){
+     else if(key == 'a'){
        a.turn(-10);
      }
-     if(key == 'd'){
+     else if(key == 'd'){
        a.turn(10);
      }
-     if(key == 's'){
+     else if(key == 's'){
        a.accelerate(-1);
      }
-     if(key == 'h'){
+     else if(key == 'h'){
        a.hyperspace();
+     }
+     else if(key == ' '){
+      shoot.add(new Bullet(a)); 
      }
    }
