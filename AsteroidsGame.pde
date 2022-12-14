@@ -44,11 +44,9 @@ public void draw()
         list.remove(i); 
        }
     }
-    
    }
    a.show();
    a.move();
-   System.out.println(shoot.size());
 }
 
 public void keyPressed(){
